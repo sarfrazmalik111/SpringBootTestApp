@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="pages/common/head" />
+<body>
+<div th:replace="pages/common/header"></div>
+<div class="container p-5">
+    <h1>Dashboard</h1>
+    <p class="text-center">
+        <a href="https://api.digitallocker.gov.in/public/oauth2/1/authorize?response_type=code&client_id=B3C6D399&state=CNP654338939305">
+            <img th:src="@{/images/digiLockerLogo.png}" style="width: 200px;"/>
+        </a>
+    </p>
+    <p>
+        <div class="share_fm_dl" id="attachment_poi"></div>
+        <script type="text/javascript" src="https://services.digitallocker.gov.in/requester/api/2/dl.js"
+                id="dlshare" data-app-id="B3C6D399" data-app-hash="QjNDNkQzOTkxNjYwMTk5MTgz"
+                time-stamp="1660199183" data-callback="myCallback">
+        </script>
+    </p>
+  
+  <div>
+  	<h2 class="text-center text-info">Spring Boot Social Login Example</h2><hr/>
+  	<span th:text="${msg}"></span>
+	<a href="/facebook-login" class="btn btn-info btn-sm" role="button">Validate using Facebook</a>
+  </div>
+  
+  <div>
+  	<h2 class="text-center text-info">Google Calendar Api Example</h2><hr/>
+  	<span th:text="${msg}"></span>
+	<a href="/get-calendar-events" class="btn btn-info btn-sm" role="button">Get Google Calendar Events</a>
+  </div>
+</div>
+<div th:replace="@{pages/common/footer}"></div>
+</body>
+</html>
+<script>
+function myCallback(data) {
+    alert(data)
+    alert(JSON.stringify(data));
+    return "SUCCESS";
+}
+</script>

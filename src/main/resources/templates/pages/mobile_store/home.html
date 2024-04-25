@@ -1,0 +1,20 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="pages/mobile_store/a_head" />
+<body>
+<div th:replace="pages/mobile_store/a_header"></div>
+    <section id="banner-container">
+        <h1>Welcome to Mobile Store</h1>
+    </section>
+    
+    <section id="category-container" class="container">
+        <div class="category m-3 col-md-4" th:each="cat: ${categories}">
+            <div>
+                <img alt="apple-logo" th:src="${cat.logoPath}" />
+            </div>
+            <div class="mobile-qty"> <h2 th:text="${cat.productCount}"></h2> </div>
+        </div>
+	</section>
+<footer th:replace="pages/mobile_store/a_footer"></footer>
+</body>
+</html>

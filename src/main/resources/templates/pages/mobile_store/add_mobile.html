@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="pages/mobile_store/a_head" />
+<body>
+<div th:replace="pages/mobile_store/a_header"></div>
+    <section id="add-mobile-container" class="container">
+        <div id="empty-div"></div>
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">Add Mobile</h4>
+                <div class="product-search-form">
+                    <form method="POST" th:action="@{/mobile-store/save-mobile}" th:object="${mobile}" enctype="multipart/form-data">
+                        <div class="form-row">
+                          <div class="form-group col-md-6">
+                              <label for="name">Category</label>
+                              <select class="form-control" th:field="*{categoryId}">
+                                  <option value="" th:text>Select Category</option>
+                                  <option th:each="cat: ${categories}" th:value="${cat.id}" th:text="${cat.name}"></option>
+                              </select>
+                              <span class="text-danger" th:if="${#fields.hasErrors('categoryId')}" th:errors="*{categoryId}">Error</span>
+                          </div>
+                          <div class="form-group col-md-6">
+                              <label for="logo">Name</label>
+                              <input type="text" class="form-control" placeholder="Enter Mobile name" th:field="*{name}" />
+                              <span class="text-danger" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Error</span>
+                          </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label for="name">Price</label>
+                                <input type="number" class="form-control" placeholder="Enter Price" th:field="*{price}" />
+                                <span class="text-danger" th:if="${#fields.hasErrors('price')}" th:errors="*{price}">Error</span>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="logo">Image</label>
+                                <input type="file" class="form-control" th:field="*{logoFile}" />
+                                <span class="text-danger" th:if="${#fields.hasErrors('logoFile')}" th:errors="*{logoFile}">Error</span>
+                            </div>
+                          </div>
+                        <div class="form-group">
+                            <label for="description">Description</label>
+                            <textarea class="form-control" th:field="*{description}" rows="3"></textarea>
+                            <span class="text-danger" th:if="${#fields.hasErrors('description')}" th:errors="*{description}">Error</span>
+                        </div>
+
+                        <input type="hidden" th:field="*{id}" />
+                        <input type="hidden" th:field="*{logoPath}" />
+                        <input type="hidden" th:field="*{createdOn}" />
+                        <button type="reset" class="btn btn-primary">Reset</button>
+                        <button type="submit" class="btn btn-success">Save</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+<footer th:replace="pages/mobile_store/a_footer"></footer>
+</body>
+</html>

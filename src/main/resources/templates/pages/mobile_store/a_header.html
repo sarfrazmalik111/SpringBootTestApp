@@ -1,0 +1,28 @@
+<header class="app-header" th:fragment="header">
+    <!-- Navbar-Start -->
+    <nav class="navbar">
+        <div class="navbar-container container">
+            <h1 class="logo">Mobile Store</h1>
+            <ul class="menu-items">
+                <li><a th:href="@{/mobile-store}">Home</a></li>
+                <li><a th:href="@{/mobile-store/categories}">Category</a></li>
+                <li><a th:href="@{/mobile-store/mobiles}">Mobile</a></li>
+                <li><a th:href="@{/mobile-store/search}">Search</a></li>
+            </ul>
+        </div>
+    </nav>
+    <!-- Navbar-End -->
+	<!-- Success/Error Alert shows here -->
+   <div class="bs-component warning-style" th:if="${alertError}">
+		<div class="alert alert-dismissible alert-danger">
+			<button class="close" type="button" data-dismiss="alert">×</button>
+			<p style="text-align: center;margin-bottom: 0;" th:text="${alertError}"></p>
+		</div>
+	</div>
+	<div class="bs-component warning-style" th:if="${alertSuccess}">
+		<div class="alert alert-dismissible alert-success alert-success-bg">
+			<button class="close" type="button" data-dismiss="alert">×</button>
+            <p style="text-align: center;margin-bottom: 0;" th:text="${alertSuccess}"></p>
+		</div>
+	</div>
+</header>

@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="pages/mobile_store/a_head" />
+<body>
+<div th:replace="pages/mobile_store/a_header"></div>
+    <section id="add-category-container" class="container">
+        <div id="empty-div"></div>
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">Add Category</h4>
+                <div class="product-search-form">
+                    <form method="POST" th:action="@{/mobile-store/save-category}" th:object="${category}" enctype="multipart/form-data">
+                        <div class="form-row">
+                          <div class="form-group col-md-6">
+                              <label for="name">Name</label>
+                              <input type="text" class="form-control" placeholder="Enter Category name" th:field="*{name}" />
+                              <span class="text-danger" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Error</span>
+                          </div>
+                          <div class="form-group col-md-6">
+                              <label for="logo">Logo</label>
+                              <input type="file" class="form-control" th:field="*{logoFile}" accept="image/jpeg,image/png" />
+                              <span class="text-danger" th:if="${#fields.hasErrors('logoFile')}" th:errors="*{logoFile}">Error</span>
+                          </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="description">Description</label>
+                            <textarea class="form-control" th:field="*{description}" rows="3"></textarea>
+                            <span class="text-danger" th:if="${#fields.hasErrors('description')}" th:errors="*{description}">Error</span>
+                        </div>
+
+                        <input type="hidden" th:field="*{id}" />
+                        <input type="hidden" th:field="*{logoPath}" />
+                        <input type="hidden" th:field="*{createdOn}" />
+                        <button type="reset" class="btn btn-primary">Reset</button>
+                        <button type="submit" class="btn btn-success">Save</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+<footer th:replace="pages/mobile_store/a_footer"></footer>
+</body>
+</html>

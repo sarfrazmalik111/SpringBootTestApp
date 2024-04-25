@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="pages/mobile_store/a_head" />
+<body>
+<div th:replace="pages/mobile_store/a_header"></div>
+    <section id="search-container" class="container">
+        <div id="empty-div"></div>
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">Search Mobile</h4>
+                <div class="product-search-form">
+                    <form id="mobile_search_form">
+                        <div class="form-row">
+                            <div class="col">
+                                <select class="form-control" id="categoryId">
+                                    <option value="" th:text>Select Category</option>
+                                    <option th:each="cat: ${categories}" th:value="${cat.id}" th:text="${cat.name}"></option>
+                                </select>
+                            </div>
+                            <div class="col">
+                                <input type="text" class="form-control" placeholder="Enter mobile name" id="mobileSearchName" />
+                            </div>
+                            <div class="col">
+                                <input type="number" class="form-control" placeholder="Enter mobile price" id="mobileSearchPrice" />
+                            </div>
+                            <div class="col">
+                                <button type="button" class="btn btn-primary" id="btnSearch">Search</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="product-list">
+                    <div class="card" id="imgCardSection">
+                        <div class="card-body">
+                            <div class="product-img">
+                                <img alt="product image" class="mobileImage" src="" />
+                            </div>
+                            <div class="product-description">
+                                <strong id="mobile-name"></strong>
+                                <p id="mobile-price"></p>
+                                <p id="mobile-info"></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+<footer th:replace="pages/mobile_store/a_footer"></footer>
+</body>
+</html>
+<script>
+$("#mobileSearchName").autocomplete({
+	minLength: 1,
+	source: function (request, response) {
+        request = {
+            categoryId:$('#categoryId').val(),
+            name:$('#mobileSearchName').val()
+        };
+        $.post("/mobile-store/search", request, response);
+    },
+    focus: function( event, ui ) {
+   		this.value = ui.item.label;
+      	return false;
+    },
+    select: function(event, ui) {
+      this.value = ui.item.label;
+      getMobileDetails(ui.item.value);
+      return false;
+    }
+})
+.data( "ui-autocomplete" )._renderItem = function( ul, item ) {
+   return $( "<li>" )
+   .append( "<a>" +item.label+ "<br/><small>Price: Rs." +item.desc+ "</small></a>" )
+   .appendTo( ul );
+};
+
+$("#mobileSearchPrice").autocomplete({
+	minLength: 1,
+	source: function (request, response) {
+        request = {
+            categoryId:$('#categoryId').val(),
+            price:$('#mobileSearchPrice').val()
+        };
+        $.post("/mobile-store/search", request, response);
+    },
+    focus: function( event, ui ) {
+   		this.value = ui.item.label;
+      	return false;
+    },
+    select: function(event, ui) {
+      this.value = ui.item.desc;
+      getMobileDetails(ui.item.value);
+      return false;
+    }
+})
+.data( "ui-autocomplete" )._renderItem = function( ul, item ) {
+   return $( "<li>" )
+   .append( "<a>" +item.label+ "<br/><small>Price: Rs." +item.desc+ "</small></a>" )
+   .appendTo( ul );
+};
+
+function getMobileDetails(mobileID) {
+    event.preventDefault();
+    console.log(mobileID);
+    $.ajax({
+        url: "/mobile-store/get-mobile/"+mobileID,
+        success: function(resultData) {
+            if(resultData) {
+            	$('.mobileImage').attr("src", resultData.logoPath);
+            	$('#mobile-name').text(resultData.name);
+            	$('#mobile-price').text("Price: Rs."+resultData.price);
+            	$('#mobile-info').text("Description: "+resultData.description);
+            	
+            	let myelement = $('#imgCardSection');
+            	myelement.addClass('img_animate');
+            	myelement.one('webkitAnimationEnd oanimationend msAnimationEnd animationend',
+                function (e) {
+            		myelement.removeClass('img_animate');
+                });
+            }
+        },
+        error: function(error) {
+            alert(error);
+        }
+    });
+}
+</script>

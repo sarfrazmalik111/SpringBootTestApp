@@ -1,0 +1,11 @@
+HELP.md
+target/
+
+### IntelliJ IDEA ###
+.apt_generated
+.classpath
+.gradle
+.idea
+.project
+.settings
+*.env
