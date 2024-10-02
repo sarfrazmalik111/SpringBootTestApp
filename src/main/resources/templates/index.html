@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="pages/common/head" />
+<body>
+<div th:replace="pages/common/header"></div>
+<div class="container p-5">
+    <h1>Dashboard</h1>
+<!--  TEST-CONTENT: It will not be seen here, either ${myName} came or not, if ${myName} not came it show empty string not error -->
+    <span th:text="${myName}">TEST-CONTENT</span>
+</div>
+<div th:replace="@{pages/common/footer}"></div>
+</body>
+</html>

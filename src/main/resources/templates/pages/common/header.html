@@ -1,0 +1,30 @@
+<header class="app-header" th:fragment="header">
+    <!-- Navbar-Start -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <a class="navbar-brand" href="#">Test Application</a>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" th:href="@{/users}">Users</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Mobile Store</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <!-- Navbar-End -->
+	<!-- Success/Error Alert shows here -->
+   <div class="bs-component warning-style" th:if="${alertError}">
+		<div class="alert alert-dismissible alert-danger">
+			<button class="close" type="button" data-dismiss="alert">×</button>
+			<p style="text-align: center;margin-bottom: 0;" th:text="${alertError}"></p>
+		</div>
+	</div>
+	<div class="bs-component warning-style" th:if="${alertSuccess}">
+		<div class="alert alert-dismissible alert-success alert-success-bg">
+			<button class="close" type="button" data-dismiss="alert">×</button>
+            <p style="text-align: center;margin-bottom: 0;" th:text="${alertSuccess}"></p>
+		</div>
+	</div>
+</header>

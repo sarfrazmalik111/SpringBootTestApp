@@ -1,0 +1,74 @@
+<div th:fragment="menu">
+<!-- Sidebar menu-->
+<div class="app-sidebar__overlay" data-toggle="sidebar"></div>
+<aside class="app-sidebar">
+   <ul class="app-menu">
+      <li><a class="app-menu__item" th:classappend="${session.menuItem=='Dashboard'}?active:''" th:href="@{/dashboard/All/All}">
+      	<img th:src="@{/images/dashboard-black-icon.png}"><span class="app-menu__label">Dashboard</span></a></li>
+      <li><a class="app-menu__item" th:classappend="${session.menuItem=='Users'}?active:''" th:href="@{/users/All}">
+      	<img th:src="@{/images/user-black-icon.png}" alt="user icon"><span class="app-menu__label">User</span></a></li>
+      <li><a class="app-menu__item" th:classappend="${session.menuItem=='Locations'}?active:''" th:href="@{/locations/All}">
+      	<img th:src="@{/images/location-black-icon.png}" alt="location icon"><span class="app-menu__label">Location</span></a></li>
+      <li><a class="app-menu__item" th:classappend="${session.menuItem=='Stations'}?active:''" th:href="@{/stations/All}">
+      	<img th:src="@{/images/station-black-icon.png}" alt="station icon"><span class="app-menu__label">Station</span></a></li>
+      <li class="treeview">
+         <a class="app-menu__item" th:classappend="${session.menuItem=='Powerbanks'}?active:''" href="#" data-toggle="treeview">
+         	<img th:src="@{/images/powerbank-black-icon.png}" alt="powerbank icon"><span class="app-menu__label">Powerbank</span>
+         	<i class="treeview-indicator fa fa-angle-right"></i></a>
+         <ul class="treeview-menu">
+            <li><a class="treeview-item" th:href="@{/powerbanks/active}" th:classappend="${powerbanksActive == true}?green-color:''">
+            	<i class="icon fa fa-circle-o"></i> Active</a></li>
+            <li><a class="treeview-item" th:href="@{/powerbanks/inactive}" th:classappend="${powerbanksInactive == true}?green-color:''">
+            	<i class="icon fa fa-circle-o"></i> Inactive</a></li>
+         </ul>
+      </li>
+      <li class="treeview">
+         <a class="app-menu__item" th:classappend="${session.menuItem=='PromoCode'}?active:''" href="#" data-toggle="treeview">
+         	<img th:src="@{/images/promo-code-black-icon.png}" alt="promo code icon"><span class="app-menu__label">Promo code</span>
+         	<i class="treeview-indicator fa fa-angle-right"></i></a>
+         <ul class="treeview-menu">
+            <li><a class="treeview-item" th:href="@{/promo-codes/active/All}" th:classappend="${promoCodesActive == true}?green-color:''">
+            	<i class="icon fa fa-circle-o"></i> Active</a></li>
+            <li><a class="treeview-item" th:href="@{/promo-codes/inactive/All}" th:classappend="${promoCodesInactive == true}?green-color:''">
+            	<i class="icon fa fa-circle-o"></i> Inactive</a></li>
+         </ul>
+      </li>
+      <li class="treeview">
+         <a class="app-menu__item" th:classappend="${session.menuItem=='Rentals'}?active:''" href="#" data-toggle="treeview">
+         	<img th:src="@{/images/rentals-black-icon.png}" alt="Rentals icon"> <span class="app-menu__label">Rentals</span>
+         	<i class="treeview-indicator fa fa-angle-right"></i></a>
+         <ul class="treeview-menu">
+            <li><a class="treeview-item" th:href="@{/rentals/active/All}" th:classappend="${rentalsActive == true}?green-color:''">
+            	<i class="icon fa fa-circle-o"></i> Active</a></li>
+            <li><a class="treeview-item" th:href="@{/rentals/inactive}" th:classappend="${rentalsInactive == true}?green-color:''">
+            	<i class="icon fa fa-circle-o"></i> Inactive</a></li>
+         </ul>
+      </li>
+      <li><a class="app-menu__item" th:classappend="${session.menuItem=='Partners'}?active:''" th:href="@{/partners}">
+      	<img th:src="@{/images/franchise-black-icon.png}" alt="franchise icon"><span class="app-menu__label">Franchise</span></a>
+      </li>
+      <li th:if="${session.employeeDetails.position2 == 'SuperAdmin'}">
+      	<a class="app-menu__item" th:classappend="${session.menuItem=='Statistics'}?active:''" th:href="@{/statistics/All/All}">
+      	<img th:src="@{/images/statistics-black-icon.png}" alt="statistics icon"><span class="app-menu__label">Statistics</span></a>
+      </li>
+      <li class="treeview">
+         <a class="app-menu__item" th:classappend="${session.menuItem=='Settings'}?active:''" href="#" data-toggle="treeview">
+         	<i class="app-menu__icon fa fa-cog"></i><span class="app-menu__label">Settings</span><i class="treeview-indicator fa fa-angle-right"></i></a>
+         <ul class="treeview-menu">
+            <li th:if="${session.employeeDetails.position2 == 'SuperAdmin'}">
+            	<a class="treeview-item" th:href="@{/settings/renting}" th:classappend="${settingRental == true}?green-color:''">
+            	<i class="icon fa fa-circle-o"></i> Renting</a></li>
+            <li>
+            	<a class="treeview-item" th:href="@{/settings/employees}" th:classappend="${settingEmployees == true}?green-color:''">
+            	<i class="icon fa fa-circle-o"></i> Employees</a></li>
+            <li th:if="${session.employeeDetails.position2 == 'SuperAdmin'}">
+            	<a class="treeview-item" th:href="@{/settings/tasks}" th:classappend="${settingTasks == true}?green-color:''">
+            	<i class="icon fa fa-circle-o"></i> Tasks</a></li>
+            <li th:if="${session.employeeDetails.position2 == 'SuperAdmin'}">
+            	<a class="treeview-item" th:href="@{/settings/admin}" th:classappend="${settingAdmin == true}?green-color:''">
+            	<i class="icon fa fa-circle-o"></i> Admin</a></li>
+         </ul>
+      </li>
+   </ul>
+</aside>
+</div>
