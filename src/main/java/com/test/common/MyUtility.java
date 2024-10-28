@@ -197,6 +197,10 @@ public class MyUtility {
 		return null;
 	}
 
+	public static boolean isVowel(String strChar) {
+		return strChar.matches("[aeiouy]");
+	}
+
 	public static void main(String[] args) {
 		MyUtility myUtility = new MyUtility();
 		JSONObject jsonObject = new JSONObject().put("name", "sarfraz malik");

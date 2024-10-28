@@ -1,5 +1,6 @@
 package com.test.common;
 
+import com.test.modal.Student;
 import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
@@ -74,8 +75,28 @@ public class LamdaExpTest {
 //        IntStream.range(2,5).forEach(System.out::println);  //2,3,4
     }
 
+    static void sortStudentByName() {
+        List<Student> students = new ArrayList<>();
+        students.add(new Student(1,"Salman", "Rampur", 23));
+        students.add(new Student(2,"Usman", "Roorkee", 25));
+        students.add(new Student(3,"Malik", "Naagal", 22));
+        students.add(new Student(4,"Abdul", "Delhi", 26));
+
+        System.out.println("--------------Collection-Sorting---------------");
+        students.sort(Comparator.comparing(s -> s.getName()));
+        students.forEach(System.out::println);
+
+        System.out.println("--------------Stream-Sorting---------------");
+        List<Student> list = students.stream()
+                .sorted(Comparator.comparingInt(s -> s.getAge()))
+                .collect(Collectors.toList());
+        list.forEach(System.out::println);
+
+    }
+
     public static void main(String[] args) {
         String desktopPath = System.getProperty("user.home") + "/Desktop/test.txt";
+        int[] intArray = {4, 2, 3,  7, 1, 2, 5, 3, 6};
         List<Integer> numList = Arrays.asList(2, 5, 1, 2, 7, 3, 9, 9, 9);
         List<String> strList = Arrays.asList("Mango", "Apple", "Guaua", "Orange", "Banana");
         System.out.println(numList);
@@ -87,6 +108,10 @@ public class LamdaExpTest {
         String firstItem = strList.stream().findFirst().orElse("NA");
         System.out.println("firstItem: " + firstItem);
 
+        int sum = Arrays.stream(intArray).sum();    //IntStream.sum();
+        int max = Arrays.stream(intArray).max().getAsInt();
+        double average = Arrays.stream(intArray).average().getAsDouble();
+
         System.out.println("---------AAA------------");
         IntStream.iterate(1, i -> i < 5, i -> i + 1).forEach(System.out::println); //1,2,3,4
         IntStream.iterate(1, i -> i + 1).limit(5).forEach(System.out::println); //1,2,3,4,5
@@ -94,6 +119,11 @@ public class LamdaExpTest {
         IntStream.range(0, 10).filter(x -> x % 3 == 0).forEach(System.out::println);    //0,3,6,9
 
         System.out.println("--------000----------");
+        Map<Integer, String> map = new HashMap<>();
+        map.put(1, "Sarfraz");
+        map.put(2, "Malik");
+        map.forEach((k,v) -> System.out.println(k +" : "+ v));
+
 
     }
 
