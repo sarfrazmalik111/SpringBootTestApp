@@ -2,14 +2,12 @@ package com.test.web;
 
 import com.test.common.AppConstants;
 import com.test.common.RestResponseUtility;
-import com.test.error.CustomResponse;
 import com.test.modal.AppUserDto;
+import com.test.modal.Student;
 import com.test.service.UserService;
-import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -108,6 +106,13 @@ public class UserRestController {
 			respEntity = responseUtility.serverErrorOcurred(ex, "Error to delete user details.");
 		}
 		return respEntity;
+	}
+
+	@GetMapping("/test-xml")
+	public Student testXmlMethod() {
+		System.out.println("----------testXmlMethod------------");
+		Student student = new Student(123, "Sarfraz", "Roorkee", 30);
+		return student;
 	}
 	
 }

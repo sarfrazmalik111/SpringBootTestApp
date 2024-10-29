@@ -1,15 +1,17 @@
 package com.test.modal;
 
 import lombok.AllArgsConstructor;
+import lombok.Data;
 
+@Data
 @AllArgsConstructor
-public class StudentDT {
+public class Student {
     int id;
     String name;
     String address;
-    String category;
+    int age;
 
     public String toString() {
-        return id+" : "+name+", "+", "+address+", "+category;
+        return id+" : "+name+", "+", "+address+", "+age;
     }
 }
