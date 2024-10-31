@@ -3,15 +3,17 @@ package com.test.web;
 import com.test.common.AppConstants;
 import com.test.common.RestResponseUtility;
 import com.test.modal.AppUserDto;
-import com.test.modal.Student;
+import com.test.modal.MyRecord;
 import com.test.service.UserService;
+import jakarta.servlet.http.HttpServletRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
+import jakarta.validation.Valid;
 
-import javax.validation.Valid;
+import java.net.URI;
 
 @RestController
 @RequestMapping({ "/api/users" })
@@ -109,9 +111,17 @@ public class UserRestController {
 	}
 
 	@GetMapping("/test-xml")
-	public Student testXmlMethod() {
+	public MyRecord testXmlMethod(HttpServletRequest request) {
 		System.out.println("----------testXmlMethod------------");
-		Student student = new Student(123, "Sarfraz", "Roorkee", 30);
+		var student = new MyRecord(123, "Sarfraz", "Roorkee");
+		System.out.println(student);
+
+		ProblemDetail errDetails = ProblemDetail.forStatus(HttpStatus.NOT_ACCEPTABLE);
+		errDetails.setTitle("Input invalid Exception");
+		errDetails.setDetail("Input can't be processed");
+		errDetails.setType(URI.create(request.getRequestURL().toString()));
+		errDetails.setProperty("myError", "custom error object");
+//		return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).body(errDetails);
 		return student;
 	}
 	

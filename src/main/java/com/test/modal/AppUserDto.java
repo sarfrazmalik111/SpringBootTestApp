@@ -2,11 +2,8 @@ package com.test.modal;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
-import javax.persistence.*;
-import javax.validation.constraints.Email;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Pattern;
-import javax.validation.constraints.Size;
+import jakarta.persistence.*;
+import jakarta.validation.constraints.*;
 import lombok.Data;
 
 @Data

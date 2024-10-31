@@ -1,9 +1,14 @@
 package com.test.common;
 
 import com.test.modal.Student;
+import lombok.val;
+
+import java.sql.DriverManager;
 import java.util.*;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
+import java.util.stream.Stream;
 
 public class LamdaExpTest {
 
@@ -80,7 +85,7 @@ public class LamdaExpTest {
         students.add(new Student(1,"Salman", "Rampur", 23));
         students.add(new Student(2,"Usman", "Roorkee", 25));
         students.add(new Student(3,"Malik", "Naagal", 22));
-        students.add(new Student(4,"Abdul", "Delhi", 26));
+        students.add(new Student(4,"Abdul", "Rampur", 26));
 
         System.out.println("--------------Collection-Sorting---------------");
         students.sort(Comparator.comparing(s -> s.getName()));
@@ -92,10 +97,37 @@ public class LamdaExpTest {
                 .collect(Collectors.toList());
         list.forEach(System.out::println);
 
+        System.out.println("--------------Stream-Sorting-By-Name-And-Age------------");
+        List<Student> list2 = students.stream()
+                .sorted(Comparator.comparing(Student::getName).thenComparing(Student::getAge))
+                .collect(Collectors.toList());
+        list2.forEach(System.out::println);
+
+        System.out.println("--------------Find-All-Address-With-More-than-10-Students--------------");
+        Map<String, Integer> map = students.stream()
+                .collect(Collectors.groupingBy(Student::getAddress, Collectors.counting()))
+                .entrySet().stream().filter(entry -> entry.getValue() > 10)
+//                .forEach(entry -> System.out.println(entry.getKey() +" : "+ entry.getValue()));
+                .collect(Collectors.toMap(entry->entry.getKey(), entry -> entry.getValue().intValue()));
+        map.forEach((k,v) -> System.out.println(k +" : "+ v));
     }
 
-    public static void main(String[] args) {
-        String desktopPath = System.getProperty("user.home") + "/Desktop/test.txt";
+    static void getSecondLargestNum() {
+//        list.stream().sorted(Comparator.comparing(Employee::getSalary))
+//                .skip(list.size()-2).findFirst().get();
+
+//        list.stream().sorted(Comparator.reverseOrder()).limit(2).skip(1).findFirst().get();
+    }
+
+    static void printAllSubStrings(String str) {
+        for (int i = 0; i < str.length(); i++) {
+            for (int j = i + 1; j <= str.length(); j++) {
+                System.out.println(str.substring(i, j));
+            }
+        }
+    }
+
+    private void commonAPI() {
         int[] intArray = {4, 2, 3,  7, 1, 2, 5, 3, 6};
         List<Integer> numList = Arrays.asList(2, 5, 1, 2, 7, 3, 9, 9, 9);
         List<String> strList = Arrays.asList("Mango", "Apple", "Guaua", "Orange", "Banana");
@@ -123,8 +155,15 @@ public class LamdaExpTest {
         map.put(1, "Sarfraz");
         map.put(2, "Malik");
         map.forEach((k,v) -> System.out.println(k +" : "+ v));
+    }
 
+    public static void main(String[] args) {
+        String desktopPath = System.getProperty("user.home") + "/Desktop/test.txt";
+        int[] intArray = {4, 2, 3,  7, 1, 2, 5, 3, 6};
+        List<Integer> numList = Arrays.asList(2, 5, 1, 2, 7, 3, 9, 9, 9);
+        List<String> strList = Arrays.asList("Mango", "Apple", "Guaua", "Orange", "Banana");
 
+        sortStudentByName();
     }
 
 

@@ -12,10 +12,10 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.multipart.MaxUploadSizeExceededException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
-import javax.validation.ConstraintViolation;
 import java.net.SocketTimeoutException;
 import java.nio.file.AccessDeniedException;
-import javax.validation.ConstraintViolationException;
+import jakarta.validation.ConstraintViolation;
+import jakarta.validation.ConstraintViolationException;
 
 @RestControllerAdvice
 public class GlobalRestExceptionHandler {

@@ -2,20 +2,14 @@ package com.test.web;
 
 import com.test.common.AppConstants;
 import com.test.common.RestResponseUtility;
-import com.test.error.CustomResponse;
-import com.test.modal.AppUserDto;
+import com.test.modal.EmployeeDto;
+import com.test.service.EmployeeService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import java.util.List;
-
-import com.test.modal.EmployeeDto;
-import com.test.service.EmployeeService;
-
-import javax.validation.Valid;
+import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping({ "/api/employees" })
