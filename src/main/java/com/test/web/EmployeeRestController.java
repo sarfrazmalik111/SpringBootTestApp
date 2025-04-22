@@ -1,7 +1,7 @@
 package com.test.web;
 
 import com.test.common.AppConstants;
-import com.test.common.RestResponseUtility;
+import com.test.common.ResponseUtility;
 import com.test.modal.EmployeeDto;
 import com.test.service.EmployeeService;
 import org.slf4j.Logger;
@@ -19,7 +19,7 @@ public class EmployeeRestController {
 	@Autowired
 	EmployeeService employeeService;
 	@Autowired
-	private RestResponseUtility responseUtility;
+	private ResponseUtility responseUtility;
 	private Logger logger = LoggerFactory.getLogger(EmployeeRestController.class);
 
 	@GetMapping("")

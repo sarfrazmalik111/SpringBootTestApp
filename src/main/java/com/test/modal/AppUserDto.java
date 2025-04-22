@@ -25,6 +25,7 @@ public class AppUserDto implements Serializable {
     private String mobileNo;
     private String password;;
     private String address;
+    private String roles;
     private boolean active = true;
     private LocalDateTime createdOn;
     @Transient

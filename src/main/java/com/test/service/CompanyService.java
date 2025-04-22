@@ -9,4 +9,5 @@ public interface CompanyService {
     Boolean deleteById(Long id);
     CompanyDto findCompanyById(Long id);
     List<CompanyDto> findAllCompanies();
+    CompanyDto findCompanyByName(String name);
 }

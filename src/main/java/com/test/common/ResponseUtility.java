@@ -8,9 +8,9 @@ import org.springframework.http.*;
 import org.springframework.stereotype.Service;
 
 @Service
-public class RestResponseUtility {
+public class ResponseUtility {
 
-	private Logger logger = LoggerFactory.getLogger(RestResponseUtility.class);
+	private Logger logger = LoggerFactory.getLogger(ResponseUtility.class);
 
 	public ResponseEntity ENTITY_NOT_FOUND = CustomResponse.getHttpErrorResponse(HttpStatus.NOT_FOUND, AppConstants.ENTITY_NOT_FOUND);
 	public ResponseEntity INVALID_DATA_ENTERED = CustomResponse.getHttpErrorResponse(HttpStatus.NOT_ACCEPTABLE, AppConstants.INVALID_INPUT);

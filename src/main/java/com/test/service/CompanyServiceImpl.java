@@ -18,19 +18,24 @@ import org.springframework.transaction.annotation.Transactional;
 public class CompanyServiceImpl implements CompanyService {
 
     @Autowired
-    private CompanyRepository companyRepository;
+    private CompanyRepository companyRepo;
     @Autowired
     private MyUtility myUtility;
 
+//    public CompanyServiceImpl() { }
+//    public CompanyServiceImpl(CompanyRepository companyRepo2) {
+//        companyRepo = companyRepo2;
+//    }
+
     public CompanyDto saveCompany(CompanyDto company) {
         company.setCreatedOn(LocalDateTime.now());
-        return companyRepository.save(company);
+        return companyRepo.save(company);
     }
 
     public Boolean deleteById(Long id) {
         Boolean flag = Boolean.valueOf(false);
         try {
-            companyRepository.deleteById(id);
+            companyRepo.deleteById(id);
             flag = Boolean.valueOf(true);
         } catch (Exception ex) {
             System.out.println(ex.getMessage());
@@ -40,7 +45,7 @@ public class CompanyServiceImpl implements CompanyService {
 
     public CompanyDto findCompanyById(Long id) {
         CompanyDto companyDto = null;
-        Optional<CompanyDto> data = companyRepository.findById(id);
+        Optional<CompanyDto> data = companyRepo.findById(id);
         if (data.isPresent()) {
             companyDto = data.get();
             companyDto.setCreatedOnStr(myUtility.formatLocalDateTimeForUI(companyDto.getCreatedOn()));
@@ -50,10 +55,15 @@ public class CompanyServiceImpl implements CompanyService {
 
     public List<CompanyDto> findAllCompanies() {
         List<CompanyDto> companyRecords = new ArrayList<>();
-        for(CompanyDto company: companyRepository.findAll()){
+        for(CompanyDto company: companyRepo.findAll()){
             company.setCreatedOnStr(myUtility.formatLocalDateTimeForUI(company.getCreatedOn()));
             companyRecords.add(company);
         }
         return companyRecords;
     }
+
+    public CompanyDto findCompanyByName(String name) {
+        return companyRepo.findByCompanyName(name);
+    }
+
 }

@@ -5,10 +5,6 @@ import org.springframework.stereotype.Service;
 @Service
 public class AppConstants {
 
-	public static final String APP_NAME = "SpringBootTestApp";
-	public static final String APP_PORT_NUMBER = "8080";
-	public static final String PROFILE_UAT = "UAT";
-
 	public static final String SUCCESS = "Success";
 	public static final String ALERT_ERROR = "alertError";
 	public static final String ALERT_SUCCESS = "alertSuccess";

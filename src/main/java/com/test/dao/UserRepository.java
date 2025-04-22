@@ -8,6 +8,9 @@ import org.springframework.data.repository.query.Param;
 
 public interface UserRepository extends JpaRepository<AppUserDto, Long> {
 
+//	@Query("SELECT CASE WHEN COUNT(u) > 0 THEN TRUE ELSE FALSE END FROM AppUserDto u WHERE u.id = :id")
+//	Boolean isUserExistsById(@Param("id") Long id);
+
 	@Query("SELECT u.emailId FROM AppUserDto u WHERE u.id = :id")
 	String getEmailIdByUserId(@Param("id") Long id);
 

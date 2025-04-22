@@ -1,16 +1,47 @@
 package com.test.common;
 
 import com.test.modal.Student;
-import lombok.val;
-
-import java.sql.DriverManager;
 import java.util.*;
-import java.util.function.Function;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
 public class LamdaExpTest {
+
+    private void commonAPI() {
+        int[] intArray = {4, 2, 3,  7, 1, 2, 5, 3, 6};
+        List<Integer> numList = Arrays.asList(2, 5, 1, 2, 7, 3, 9, 9, 9);
+        List<String> strList = Arrays.asList("Mango", "Apple", "Guaua", "Orange", "Banana");
+        System.out.println(numList);
+        String[] sampleArray = strList.toArray(String[]::new);
+
+        List<Integer> list = IntStream.of(intArray).boxed().collect(Collectors.toList());
+        List<Integer> list2 = Arrays.stream(intArray).boxed().collect(Collectors.toList());
+        IntStream intStream = Arrays.stream(intArray);
+        Stream<Integer> intStream2 = intStream.boxed();
+
+// findFirst
+        String firstItem = strList.stream().findFirst().orElse("NA");
+        System.out.println("firstItem: " + firstItem);
+// anyMatch
+        boolean anyMatchFound = numList.stream().anyMatch(n -> n == 5);   //str.equals("Apple")
+        System.out.println("anyMatchFound: " + anyMatchFound);
+
+        int sum = Arrays.stream(intArray).sum();    //IntStream.sum();
+        int max = Arrays.stream(intArray).max().getAsInt();
+        double average = Arrays.stream(intArray).average().getAsDouble();
+//      Map<String, Double> averageSalaries = employees.stream()
+//            .collect(Collectors.groupingBy(Employee::getDeptName, Collectors.averagingDouble(Employee::getSalary)))
+//            .forEach((k,v) -> System.out.println(k +" : "+ v));;
+
+        System.out.println("---------AAA------------");
+        IntStream.iterate(1, i -> i < 5, i -> i + 1).forEach(System.out::println); //1,2,3,4
+        IntStream.iterate(1, i -> i + 1).limit(5).forEach(System.out::println); //1,2,3,4,5
+        IntStream.range(0, 5).forEach(System.out::println);    //0,1,2,3,4
+        IntStream.range(0, 10).filter(x -> x % 3 == 0).forEach((x) -> x = x + 2); //No printing
+        IntStream.range(0, 10).filter(x -> x % 3 == 0).forEach(System.out::println);    //0,3,6,9
+    }
 
     static void getListUniqueItems(List<Integer> numList) {
 //        List<Integer> numList = Arrays.asList(2,5,1,2,7,3,9);
@@ -27,17 +58,20 @@ public class LamdaExpTest {
 
     static void getDuplicateItems(List<Integer> numList) {
         System.out.println("------------getting-Duplicate-Items---------------");
-        System.out.println(Collections.frequency(numList, 2));
-        System.out.println(numList.contains(2));
+        if(numList.contains(2)) {
+            System.out.println("frequency(2): " +Collections.frequency(numList, 2));
+        }
         numList.stream().filter(n -> Collections.frequency(numList, n) > 1)
                 .collect(Collectors.toSet()).forEach(System.out::println);
+//      Input: 1,2,3,2,9,9,9
+//      Output: 2,9
     }
 
     static void getListMaxItem(List<Integer> numList, List<String> strList) {
         System.out.println("------------getting-MAX-Item---------------");
         Integer maxNum = numList.stream().max(Integer::compare).get();
         Integer maxNum2 = numList.stream().max(Comparator.naturalOrder()).get();
-        Integer maxNum3 = numList.stream().reduce(Integer::max).get();
+        Integer maxNum3 = numList.stream().reduce(Integer::max).get();  //Integer::sum
         Integer maxNum4 = numList.stream().mapToInt(a -> a).max().getAsInt();
         System.out.println(maxNum);
 //      Integer.compare(x, y) = return (x > y) ? 1 : ((x < y) ? -1 : 0);
@@ -52,10 +86,17 @@ public class LamdaExpTest {
     static void getListSortedItems() {
         System.out.println("------------getting-Sorted-Items---------------");
         List<String> strList = Arrays.asList("Mango", "Apple", "Guaua", "Orange", "Banana");
-        List sortedStrList = strList.stream().sorted((a,b) -> a.compareTo(b)).collect(Collectors.toList());
-        List sortedStrList2 = strList.stream().sorted(Comparator.naturalOrder()).collect(Collectors.toList());  //Same for Number
-        List sortedStrList3 = strList.stream().sorted(Comparator.reverseOrder()).collect(Collectors.toList());  //Same for Number
-        System.out.println(sortedStrList);
+//        Collections.sort(strList);
+        List sortedList = strList.stream().sorted().collect(Collectors.toList());
+        strList.stream().sorted(Comparator.naturalOrder()).collect(Collectors.toList());  //Same for Number
+        strList.stream().sorted(Comparator.reverseOrder()).collect(Collectors.toList());  //Same for Number
+        strList.stream().sorted((a,b) -> a.compareTo(b)).collect(Collectors.toList());
+        System.out.println(sortedList);
+//        nums.stream().sorted((a,b) -> a.compareTo(b));    //ASC
+//        nums.stream().sorted((a,b) -> b.compareTo(a));    //DESC
+//        nums.stream().sorted((a,b) -> a>b ? 1 : (a==b ? 0 : -1))  //ASC
+//        nums.stream().sorted((a,b) -> b>a ? 1 : (a==b ? 0 : -1))  //DESC
+//        nums.stream().sorted((a,b) -> a>b ? -1 : (a==b ? 0 : 1))  //DESC
     }
 
     static void removeStringDuplicateChars(String str) {
@@ -79,29 +120,30 @@ public class LamdaExpTest {
         return IntStream.range(2, number).noneMatch(a -> number % a == 0 );
 //        IntStream.range(2,5).forEach(System.out::println);  //2,3,4
     }
+    static Integer findFirstPrimeNumber(List<Integer> numList) {
+//        boolean isPrimeFound = numList.stream().anyMatch(a -> isPrime(a));
+        return numList.stream().filter(a -> isPrime(a)).findFirst().orElse(-1);
+    }
 
     static void sortStudentByName() {
         List<Student> students = new ArrayList<>();
-        students.add(new Student(1,"Salman", "Rampur", 23));
-        students.add(new Student(2,"Usman", "Roorkee", 25));
-        students.add(new Student(3,"Malik", "Naagal", 22));
-        students.add(new Student(4,"Abdul", "Rampur", 26));
+        students.add(new Student(1, "Salman", "Rampur", 23));
+        students.add(new Student(2, "Usman", "Roorkee", 25));
+        students.add(new Student(3, "Malik", "Naagal", 22));
+        students.add(new Student(4, "Abdul", "Rampur", 26));
+//      Collections.sort(students);   //To do this need to implement Comparable interface in Student
+//      students.sort(Comparator.comparingInt(Student::getAge));    //It will override the Comparable sorting
 
         System.out.println("--------------Collection-Sorting---------------");
         students.sort(Comparator.comparing(s -> s.getName()));
         students.forEach(System.out::println);
+//      students.stream().sorted(Comparator.comparingInt(Student::getAge).reversed());    //DESC
+//      students.stream().sorted(Comparator.comparing(Student::getName).reversed());      //DESC
 
-        System.out.println("--------------Stream-Sorting---------------");
-        List<Student> list = students.stream()
-                .sorted(Comparator.comparingInt(s -> s.getAge()))
-                .collect(Collectors.toList());
-        list.forEach(System.out::println);
-
-        System.out.println("--------------Stream-Sorting-By-Name-And-Age------------");
-        List<Student> list2 = students.stream()
+        System.out.println("--------------Stream-Sorting-By-Name-And-Age--DESC----------");
+        students.stream()
                 .sorted(Comparator.comparing(Student::getName).thenComparing(Student::getAge))
-                .collect(Collectors.toList());
-        list2.forEach(System.out::println);
+                .forEach(System.out::println);
 
         System.out.println("--------------Find-All-Address-With-More-than-10-Students--------------");
         Map<String, Integer> map = students.stream()
@@ -112,61 +154,102 @@ public class LamdaExpTest {
         map.forEach((k,v) -> System.out.println(k +" : "+ v));
     }
 
-    static void getSecondLargestNum() {
-//        list.stream().sorted(Comparator.comparing(Employee::getSalary))
-//                .skip(list.size()-2).findFirst().get();
+    static Integer getSecondLargestNum(List<Integer> list) {
+        return list.stream().sorted(Comparator.reverseOrder()).skip(1).findFirst().orElse(0);
+//      String secondMaxStr = list.stream()
+//                .sorted(Comparator.comparingInt(String::length).reversed())
+//                .skip(1).findFirst().get();
 
-//        list.stream().sorted(Comparator.reverseOrder()).limit(2).skip(1).findFirst().get();
+//        list.stream().sorted(Comparator.comparing(Employee::getSalary))
+//                .skip(list.size()-2)
+//                .findFirst().get();
+
+//        Get Second MAX salary department-wise
+//        employees.stream()
+//                .collect(Collectors.groupingBy(Employee::depart,
+//                        Collectors.collectingAndThen(Collectors.toList(), list -> list.stream().sorted(Comparator.comparing(Employee::salary).reversed()).skip(1).findFirst().orElse(null))
+//                ))
+//                .forEach((k,v) -> System.out.println(k +" : "+ v));
     }
 
     static void printAllSubStrings(String str) {
         for (int i = 0; i < str.length(); i++) {
-            for (int j = i + 1; j <= str.length(); j++) {
+            for (int j = i +1; j <= str.length(); j++) {
                 System.out.println(str.substring(i, j));
             }
+//      OR      for (int j = i; j < str.length(); j++) {
+//                System.out.println(str.substring(i, j+1));
+//            }
         }
     }
 
-    private void commonAPI() {
-        int[] intArray = {4, 2, 3,  7, 1, 2, 5, 3, 6};
-        List<Integer> numList = Arrays.asList(2, 5, 1, 2, 7, 3, 9, 9, 9);
-        List<String> strList = Arrays.asList("Mango", "Apple", "Guaua", "Orange", "Banana");
-        System.out.println(numList);
-        String[] sampleArray = strList.toArray(String[]::new);
-// anyMatch
-        boolean anyMatchFound = numList.stream().anyMatch(n -> n == 5);   //str.equals("Apple")
-        System.out.println("anyMatchFound: " + anyMatchFound);
-// findFirst
-        String firstItem = strList.stream().findFirst().orElse("NA");
-        System.out.println("firstItem: " + firstItem);
+    static void breakListIntoSubList(List<Integer> list) {
+        int chunk = (list.size()+1)/2;  //Break list haft-by-half
+        final AtomicInteger counter = new AtomicInteger();
+        Map<Integer, List<Integer>> map = list.stream().collect(Collectors.groupingBy(s -> counter.getAndIncrement()/chunk));
+        System.out.println(map.size());
+        System.out.println(map.get(0));
+        System.out.println(map.get(1));
 
-        int sum = Arrays.stream(intArray).sum();    //IntStream.sum();
-        int max = Arrays.stream(intArray).max().getAsInt();
-        double average = Arrays.stream(intArray).average().getAsDouble();
+//        int chunk = list.size()/2;  //Break list haft-by-half
+//        System.out.println(list.subList(0, chunk));
+//        System.out.println(list.subList(chunk, list.size()));
+    }
 
-        System.out.println("---------AAA------------");
-        IntStream.iterate(1, i -> i < 5, i -> i + 1).forEach(System.out::println); //1,2,3,4
-        IntStream.iterate(1, i -> i + 1).limit(5).forEach(System.out::println); //1,2,3,4,5
-        IntStream.range(0, 10).filter(x -> x % 3 == 0).forEach((x) -> x = x + 2); //No printing
-        IntStream.range(0, 10).filter(x -> x % 3 == 0).forEach(System.out::println);    //0,3,6,9
+    //Get the MAx sum of any sub array from the given array
+    static int subArrayMaxSum(int arr[]) {
+        int res = arr[0];
+        for(int x=1; x < arr.length; x++) {
+            int currSum = 0;
+            for(int y=x; y < arr.length; y++) {
+                currSum = currSum + arr[y];
+                res = Math.max(res, currSum);   //max() -> (a >= b) ? a : b;
+            }
+        }
+        System.out.println("Sub Array Max Sum: "+ res);
+        return res;
+    }
 
-        System.out.println("--------000----------");
-        Map<Integer, String> map = new HashMap<>();
-        map.put(1, "Sarfraz");
-        map.put(2, "Malik");
-        map.forEach((k,v) -> System.out.println(k +" : "+ v));
+    static void printUnionAndIntersectionOfLists() {
+        List<Integer> list1 = Arrays.asList(1, 2, 3, 4, 5);
+        List<Integer> list2 = Arrays.asList(4, 5, 6, 7, 8);
+        System.out.println("Union:->");
+        Stream.concat(list1.stream(), list2.stream())
+                .distinct()
+                .forEach(System.out::println);
+
+        System.out.println("Intersection:->");
+        list1.stream().filter(a -> list2.contains(a))
+                .forEach(System.out::println);
+    }
+
+    static void convertListToMap() {
+        List<String> list = Arrays.asList("apple:2", "banana:3", "apple:4");
+        list.stream().map(s -> s.split(":"))
+            .collect(Collectors.groupingBy(s -> s[0],
+                    Collectors.summingInt(s -> Integer.parseInt(s[1]))
+            )).forEach((k,v) -> System.out.println(k +" : "+ v));
+//.collect(Collectors.groupingBy(s -> s[0],
+//      Collectors.mapping(s -> s[1], Collectors.toList())
+//  )) ---> Map(String, List<String>)
+        //OUTPUT:
+        // apple : 6
+        // banana : 3
     }
 
     public static void main(String[] args) {
         String desktopPath = System.getProperty("user.home") + "/Desktop/test.txt";
         int[] intArray = {4, 2, 3,  7, 1, 2, 5, 3, 6};
-        List<Integer> numList = Arrays.asList(2, 5, 1, 2, 7, 3, 9, 9, 9);
+        List<Integer> numList = Arrays.stream(intArray).boxed().collect(Collectors.toList());
         List<String> strList = Arrays.asList("Mango", "Apple", "Guaua", "Orange", "Banana");
 
-        sortStudentByName();
+        System.out.println(Math.max(5,3));
+        convertListToMap();
+
     }
-
-
 
 }
 
+record Employee(String name, String dept, int age, int salary) {
+
+}

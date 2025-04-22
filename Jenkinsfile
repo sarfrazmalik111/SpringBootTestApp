@@ -12,7 +12,7 @@ pipeline {
             steps {
                 echo 'Build step STARTED'
                 sh 'echo "build version: ${VERSION_NAME}"'
-                sh "mvn clean install -DskipTests"
+                sh 'mvn clean install -DskipTests'
             }
         }
         stage('test') {
