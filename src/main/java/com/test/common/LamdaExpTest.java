@@ -43,6 +43,13 @@ public class LamdaExpTest {
         IntStream.range(0, 10).filter(x -> x % 3 == 0).forEach(System.out::println);    //0,3,6,9
     }
 
+    static int findGCDOfTwoNumber(int a, int b) {
+        int gcd = IntStream.iterate(a, i-> i>1, i-> i-1)    //i-- : postdescrement will not work here, use --i or i-1
+                .filter(n-> (a%n == 0 && b%n == 0))
+                .findFirst().orElse(-1);
+        return gcd;
+    }
+
     static void getListUniqueItems(List<Integer> numList) {
 //        List<Integer> numList = Arrays.asList(2,5,1,2,7,3,9);
         System.out.println("------------getting-Unique-Items---------------");
@@ -170,6 +177,10 @@ public class LamdaExpTest {
 //                        Collectors.collectingAndThen(Collectors.toList(), list -> list.stream().sorted(Comparator.comparing(Employee::salary).reversed()).skip(1).findFirst().orElse(null))
 //                ))
 //                .forEach((k,v) -> System.out.println(k +" : "+ v));
+
+//        sorted(Map.Entry.comparingByValue())
+//        sorted(Comparator.comparing(Map.Entry::getValue))
+
     }
 
     static void printAllSubStrings(String str) {

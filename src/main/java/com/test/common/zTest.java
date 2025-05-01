@@ -1,7 +1,5 @@
 package com.test.common;
 
-import com.test.modal.Student;
-
 import java.util.*;
 
 public class zTest {

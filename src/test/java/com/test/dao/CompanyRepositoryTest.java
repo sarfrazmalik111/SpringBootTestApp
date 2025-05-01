@@ -21,14 +21,17 @@ class CompanyRepositoryTest {
     static void beforeAll(){
         System.out.println("-------beforeAll--------");
     }
+
     @AfterAll
     static void afterAll() {
         System.out.println("-------afterAll--------");
     }
+
     @BeforeEach
     void beforeEach() {
         System.out.println("-------beforeEach--------");
     }
+
     @AfterEach
     void afterEach(){
         System.out.println("-------afterEach--------");
