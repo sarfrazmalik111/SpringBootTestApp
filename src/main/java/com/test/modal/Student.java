@@ -5,7 +5,7 @@ import lombok.Data;
 
 @Data
 @AllArgsConstructor
-public class Student {
+public class Student implements Comparable {
     int id;
     String name;
     String address;
@@ -13,5 +13,11 @@ public class Student {
 
     public String toString() {
         return id+" : "+name+", "+", "+address+", "+age;
+    }
+
+    @Override
+    public int compareTo(Object o) {
+        Student st = (Student) o;
+        return name.compareTo(st.name);
     }
 }

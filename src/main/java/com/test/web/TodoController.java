@@ -28,7 +28,7 @@ public class TodoController {
     }
 
     @GetMapping("/{id}")
-    public Todo getTodoList(@PathVariable Integer id) {
+    public Todo getTodoDetails(@PathVariable Integer id) {
         return restClient.get().uri("/todos/{id}", id).retrieve().body(Todo.class);
     }
 
@@ -38,6 +38,18 @@ public class TodoController {
                 .contentType(MediaType.APPLICATION_JSON)
                 .body(todo)
                 .retrieve().body(Todo.class);
+    }
+
+    @DeleteMapping("/{id}")
+    public Todo deleteTodoDetails(@PathVariable Integer id) {
+        return restClient.delete().uri("/todos/{id}", id).retrieve().body(Todo.class);
+    }
+
+    @PostMapping("save-todos")
+    public String saveTodos(@RequestBody List<Todo> todos) {
+        System.out.println(todos);
+        //todoRepo.saveAll(todos);
+        return "Success";
     }
 
 }

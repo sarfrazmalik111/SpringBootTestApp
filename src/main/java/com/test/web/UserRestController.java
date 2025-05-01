@@ -1,7 +1,8 @@
 package com.test.web;
 
 import com.test.common.AppConstants;
-import com.test.common.RestResponseUtility;
+import com.test.common.MyUtility;
+import com.test.common.ResponseUtility;
 import com.test.modal.AppUserDto;
 import com.test.modal.MyRecord;
 import com.test.service.UserService;
@@ -23,7 +24,9 @@ public class UserRestController {
 	@Autowired
 	private UserService userService;
 	@Autowired
-	private RestResponseUtility responseUtility;
+	private ResponseUtility responseUtility;
+	@Autowired
+	private MyUtility myUtility;
 	private Logger logger = LoggerFactory.getLogger(UserRestController.class);
 
 	@GetMapping("")
@@ -123,6 +126,20 @@ public class UserRestController {
 		errDetails.setProperty("myError", "custom error object");
 //		return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).body(errDetails);
 		return student;
+	}
+
+	int count = 1;
+	@GetMapping("/test-aop")
+	public String testAOP() {
+		System.out.println("----------testAOP------------");
+		System.out.println("getTimeInSeconds : " +myUtility.getTimeInSeconds());
+		return "Success";
+	}
+
+	@GetMapping("/test-aop2")
+	public String testAOP2() {
+		System.out.println("----------testAOP-2-----------");
+		return "Success";
 	}
 	
 }

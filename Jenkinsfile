@@ -12,7 +12,7 @@ pipeline {
             steps {
                 echo 'Build step STARTED'
                 sh 'echo "build version: ${VERSION_NAME}"'
-                sh "mvn clean install -DskipTests"
+                sh 'mvn clean install -DskipTests'
             }
         }
         stage('test') {
@@ -24,7 +24,7 @@ pipeline {
         stage('deploy') {
             steps {
                 echo 'Deploy step STARTED'
-                sh 'cp target/ROOT.war /Applications/apache-tomcat-9.0.8/webapps/'
+                sh 'cp target/ROOT.war /Applications/apache-tomcat-11.0.0/webapps/'
             }
         }
     }

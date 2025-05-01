@@ -68,8 +68,7 @@ public class DSATest {
 
     static boolean primeNumber(int number) {
         System.out.println("--------prime-Number-------");
-        boolean isPrime = IntStream.range(2, number).noneMatch(x -> number%x == 0);
-        return isPrime;
+        return IntStream.range(2, number).noneMatch(x -> number % x == 0);
     }
 
     static void swapTwoNumbersWithoutThirdNo(int a, int b) {
@@ -84,7 +83,7 @@ public class DSATest {
     static void reverseInteger(int number) {
         System.out.println("--------reverse-Integer-------");
         int reverseNum = 0;
-        while(number != 0) {
+        while(number > 0) {
             int remainder = number % 10;
             number = number/10;
             reverseNum = reverseNum * 10 + remainder;
@@ -94,18 +93,20 @@ public class DSATest {
 
     static void reverseArray(int array[]) {
         System.out.println("--------reverse-Array-------");
-        for(int x=0; x<array.length/2; x++) {
+        int LENGTH = array.length;
+        for(int x=0; x<LENGTH/2; x++) {
             int temp = array[x];
-            array[x] = array[array.length-1-x];
-            array[array.length-1-x] = temp;
+            array[x] = array[LENGTH-1-x];
+            array[LENGTH-1-x] = temp;
         }
         printArray(array);
     }
 
     static int[] bubbleSortArray(int array[]) {
         System.out.println("--------bubble-Sort-Array-------");
-        for(int x=0; x<array.length; x++) {
-            for(int y=0; y<array.length-1-x; y++) {
+        int LENGTH = array.length;
+        for(int x=0; x<LENGTH; x++) {
+            for(int y=0; y<LENGTH-1-x; y++) {
                 if(array[y] > array[y+1]) {
                     int temp = array[y];
                     array[y] = array[y+1];
@@ -230,6 +231,10 @@ public class DSATest {
         print2DArray(array2);
 
         binarySearch(array, 5);
+
+        MyImmutable myImmutable = new MyImmutable(12, "Malik", Arrays.asList("Apple", "Banana"));
+        System.out.println(myImmutable.getList());
+        System.out.println(myImmutable.getList().add("sad"));
     }
 }
 

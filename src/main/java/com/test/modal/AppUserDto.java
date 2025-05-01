@@ -16,7 +16,7 @@ public class AppUserDto implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @NotBlank
-    @Size(min = 3, max = 30)
+    @Size(min = 3, max = 30, message = "Invalid username")
     private String userName;
     @Column(unique = true)
     @Email(message="Invalid email address")
@@ -25,6 +25,7 @@ public class AppUserDto implements Serializable {
     private String mobileNo;
     private String password;;
     private String address;
+    private String roles;
     private boolean active = true;
     private LocalDateTime createdOn;
     @Transient
