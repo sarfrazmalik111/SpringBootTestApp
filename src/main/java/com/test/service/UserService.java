@@ -10,5 +10,6 @@ public interface UserService {
 	AppUserDto findUserByEmailId(String emailId);
 	List<AppUserDto> findAllUsers();
 	boolean deleteById(Long id);
+	boolean existsByEmailId(String emailId);
 
 }

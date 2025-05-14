@@ -112,34 +112,5 @@ public class UserRestController {
 		}
 		return respEntity;
 	}
-
-	@GetMapping("/test-xml")
-	public MyRecord testXmlMethod(HttpServletRequest request) {
-		System.out.println("----------testXmlMethod------------");
-		var student = new MyRecord(123, "Sarfraz", "Roorkee");
-		System.out.println(student);
-
-		ProblemDetail errDetails = ProblemDetail.forStatus(HttpStatus.NOT_ACCEPTABLE);
-		errDetails.setTitle("Input invalid Exception");
-		errDetails.setDetail("Input can't be processed");
-		errDetails.setType(URI.create(request.getRequestURL().toString()));
-		errDetails.setProperty("myError", "custom error object");
-//		return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).body(errDetails);
-		return student;
-	}
-
-	int count = 1;
-	@GetMapping("/test-aop")
-	public String testAOP() {
-		System.out.println("----------testAOP------------");
-		System.out.println("getTimeInSeconds : " +myUtility.getTimeInSeconds());
-		return "Success";
-	}
-
-	@GetMapping("/test-aop2")
-	public String testAOP2() {
-		System.out.println("----------testAOP-2-----------");
-		return "Success";
-	}
 	
 }

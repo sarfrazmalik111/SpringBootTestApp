@@ -16,7 +16,7 @@ public class HomeController {
 	private String indexPage = "index";
 	private String pageNotFoundPage = "pages/common/pageNotFound";
 
-	@GetMapping("/home")
+	@GetMapping({"", "/home"})
 	public String homePage(Model model) {
 		System.out.println("----------homePage------------");
 		model.addAttribute("myName", "Sarfraz Malik");

@@ -1,5 +1,6 @@
 package com.test.web;
 
+import com.test.common.AppConstants;
 import com.test.modal.AppUserDto;
 import com.test.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +10,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import jakarta.validation.Valid;
+import org.springframework.web.servlet.view.RedirectView;
 
 @Controller
 @RequestMapping({ "/users" })
@@ -42,9 +44,13 @@ public class UserController {
 	}
 
 	@PostMapping({ "/save" })
-	public String save(@Valid @ModelAttribute("appUser") AppUserDto appUser, BindingResult bindingResult, RedirectAttributes redAtt) {
+	public String save(@Valid @ModelAttribute("appUser") AppUserDto appUser, BindingResult bindingResult, RedirectAttributes redAtt, Model model) {
 		if (bindingResult.hasErrors())
 			return addEditUserPage;
+		if (this.userService.existsByEmailId(appUser.getEmailId())) {
+			model.addAttribute(alertError, AppConstants.Existing_Email);
+			return addEditUserPage;
+		}
 		this.userService.saveUser(appUser);
 		redAtt.addFlashAttribute(alertSuccess, "User details saved successfully!");
 		return "redirect:/users";

@@ -21,6 +21,7 @@ public class AppUserDto implements Serializable {
     @Column(unique = true)
     @Email(message="Invalid email address")
     private String emailId;
+//    @Pattern(regexp = "^(?!0)[0-9]{10}", message="Invalid mobileNo")
     @Pattern(regexp = "91\\d{10}", message="Invalid mobileNo")
     private String mobileNo;
     private String password;;
@@ -30,5 +31,7 @@ public class AppUserDto implements Serializable {
     private LocalDateTime createdOn;
     @Transient
     private String createdOnStr;
+//    @Enumerated(EnumType.STRING)
+//    private AppConstants.UserTypeEnum userType;
 
 }

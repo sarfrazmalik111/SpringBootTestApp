@@ -3,6 +3,7 @@ package com.test.common;
 import com.test.modal.Student;
 import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
@@ -41,10 +42,13 @@ public class LamdaExpTest {
         IntStream.range(0, 5).forEach(System.out::println);    //0,1,2,3,4
         IntStream.range(0, 10).filter(x -> x % 3 == 0).forEach((x) -> x = x + 2); //No printing
         IntStream.range(0, 10).filter(x -> x % 3 == 0).forEach(System.out::println);    //0,3,6,9
+
+        strList.stream().distinct().collect(Collectors.toMap(Function.identity(), String::length))
+                .forEach((k, v)-> System.out.println(k +" : "+ v));
     }
 
     static int findGCDOfTwoNumber(int a, int b) {
-        int gcd = IntStream.iterate(a, i-> i>1, i-> i-1)    //i-- : postdescrement will not work here, use --i or i-1
+        int gcd = IntStream.iterate(a, i-> i>1, i-> i-1)    //i-- : post descrement will not work here, use --i or i-1
                 .filter(n-> (a%n == 0 && b%n == 0))
                 .findFirst().orElse(-1);
         return gcd;
@@ -85,7 +89,8 @@ public class LamdaExpTest {
 
         String maxStr = strList.stream().max(Comparator.naturalOrder()).get();    //ordering of strings in alphabetical order
 //      String maxStr = strList.stream().max(Comparator.comparing(a -> a)).get();
-//      String maxStr = strList.stream().max(Comparator.comparing(String::valueOf)).get();
+//      String maxStr = strList.stream().max(Comparator.comparing(String::valueOf)).get();  //Compare value
+//      String maxStr = strList.stream().max(Comparator.comparing(String::length)).get();   //Compare length
 //      String maxStr = strList.stream().reduce((a,b) -> a.compareTo(b) > 0 ? a : b).get();
         System.out.println(maxStr);
     }
@@ -174,9 +179,16 @@ public class LamdaExpTest {
 //        Get Second MAX salary department-wise
 //        employees.stream()
 //                .collect(Collectors.groupingBy(Employee::depart,
-//                        Collectors.collectingAndThen(Collectors.toList(), list -> list.stream().sorted(Comparator.comparing(Employee::salary).reversed()).skip(1).findFirst().orElse(null))
+//                        Collectors.collectingAndThen(Collectors.toList(),
+//                              list -> list.stream().sorted(Comparator.comparing(Employee::salary).reversed()).skip(1).findFirst().orElse(null))
 //                ))
 //                .forEach((k,v) -> System.out.println(k +" : "+ v));
+
+//        Get Highest salary by department
+//        employees.stream()
+//                .collect(Collectors.groupingBy(Employee::depart, Collectors.maxBy(Comparator.comparing(Employee::salary))))
+//                .forEach((k, v) -> System.out.println(k +" : "+ v.get().salary()));
+
 
 //        sorted(Map.Entry.comparingByValue())
 //        sorted(Comparator.comparing(Map.Entry::getValue))

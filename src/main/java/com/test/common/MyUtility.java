@@ -1,11 +1,9 @@
 package com.test.common;
 
-import java.security.NoSuchAlgorithmException;
-import java.security.SecureRandom;
 import java.time.*;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
-
+import java.util.random.RandomGenerator;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.*;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
@@ -30,6 +28,7 @@ public class MyUtility {
 	public static final String local_DateTime_Format = "dd/MM/yyyy HH:mm:ss";
 	private Logger logger = LoggerFactory.getLogger(MyUtility.class);
 	private static ObjectMapper objectMapper = new ObjectMapper();
+	private static RandomGenerator randomGenerator = RandomGenerator.of("L64X128MixRandom");	//L128X256MixRandom
 
 //	===================================DateTime-Formating-Start=====================================
 	public Long getTimeInSeconds() {
@@ -83,24 +82,8 @@ public class MyUtility {
 		return newDate;
 	}
 
-	private static Random random = null;
-	public static Random getRandom() {
-		try {
-			if(random == null) {
-				random = SecureRandom.getInstanceStrong();
-			}
-		} catch (NoSuchAlgorithmException ex) {
-			ex.printStackTrace();
-		}
-		return random;
-	}
 	public String get5DigitRandomNumber() {
-		if(getRandom() == null) return null;
-		return String.format("%05d", random.nextInt(99999));
-	}
-	public String get6DigitRandomNumber() {
-		if(getRandom() == null) return null;
-		return String.format("%06d", random.nextInt(999999));
+		return String.format("%05d", randomGenerator.nextInt(99999));
 	}
 
 	public Double parseUpto2DecimalPlaces(Double doubleValue) {

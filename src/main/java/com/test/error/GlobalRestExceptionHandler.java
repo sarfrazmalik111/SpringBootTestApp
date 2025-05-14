@@ -21,7 +21,7 @@ import jakarta.validation.ConstraintViolation;
 import jakarta.validation.ConstraintViolationException;
 
 @Order(Ordered.HIGHEST_PRECEDENCE)
-@RestControllerAdvice
+//@RestControllerAdvice
 public class GlobalRestExceptionHandler {
 
     private Logger logger = LoggerFactory.getLogger(GlobalRestExceptionHandler.class);

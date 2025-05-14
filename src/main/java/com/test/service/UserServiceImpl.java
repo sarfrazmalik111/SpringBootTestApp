@@ -57,4 +57,9 @@ public class UserServiceImpl implements UserService {
 		return status;
 	}
 
+	public boolean existsByEmailId(String emailId) {
+		if(emailId.isBlank()) return false;
+		return userRepository.existsByEmailId(emailId);
+	}
+
 }

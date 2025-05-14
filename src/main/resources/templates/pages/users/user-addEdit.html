@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head th:replace="pages/common/head" />
+<head th:replace="~{pages/common/head :: head}" />
 <body>
-<div th:replace="pages/common/header"></div>
+<div th:replace="~{pages/common/header :: header}"></div>
 <div class="container p-5">
 <h2>User Details</h2>
 <form th:action="@{/users/save}" th:object="${appUser}" method="POST">
@@ -13,8 +13,8 @@
   	</div>
   	<div class="form-group">
     	<label for="email">Email:</label>
-    	<input type="text" class="form-control" placeholder="Enter email" th:field="*{email}" />
-    	<span class="text-danger" th:if="${#fields.hasErrors('email')}" th:errors="*{email}">Email Error</span>
+    	<input type="text" class="form-control" placeholder="Enter email address" th:field="*{emailId}" />
+    	<span class="text-danger" th:if="${#fields.hasErrors('emailId')}" th:errors="*{emailId}">Email Error</span>
   	</div>
 	<div class="form-group">
 		<label for="mobileNo">MobileNo:</label>
@@ -35,6 +35,6 @@
   	</div>
 </form>
 </div>
-<div th:replace="@{pages/common/footer}"></div>
+<div th:replace="~{pages/common/footer :: footer}"></div>
 </body>
 </html>
