@@ -19,5 +19,8 @@ public class Student implements Comparable {
     public int compareTo(Object o) {
         Student st = (Student) o;
         return name.compareTo(st.name);
+//        return Integer.compare(st.age, age);    //DESC
+//        Integer age = null;
+//        age.compareTo(st.age);    //ASC
     }
 }

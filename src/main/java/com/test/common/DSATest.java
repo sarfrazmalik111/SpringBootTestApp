@@ -1,8 +1,6 @@
 package com.test.common;
 
-import java.util.Arrays;
-import java.util.Comparator;
-import java.util.List;
+import java.util.*;
 import java.util.stream.IntStream;
 
 public class DSATest {
@@ -216,22 +214,41 @@ public class DSATest {
         return total;
     }
 
+    static boolean hasMatchingBrackets(String str) {
+        Deque<Character> stack = new ArrayDeque<>();
+        for (char ch : str.toCharArray()) {
+            if (ch == '[' || ch == '{' || ch == '(') {
+                stack.push(ch);
+            } else if (ch == ']' || ch == '}' || ch == ')') {
+                if (stack.isEmpty()) {
+                    return false;
+                }
+                char top = stack.pop();
+                if ((ch == ')' && top != '(') || (ch == ']' && top != '[') || (ch == '}' && top != '{')) {
+                    return false;
+                }
+            }
+        }
+        return stack.isEmpty();
+    }
+
+    static Set<Set<Integer>> subsets(int[] nums) {
+        Set<Set<Integer>> result = new HashSet<>();
+        result.add(new HashSet<>());
+        for (int num : nums) {
+            List<Set<Integer>> newSubsets = new ArrayList<>();
+            for (Set<Integer> subset : result) {
+                Set<Integer> newSubset = new HashSet<>(subset);
+                newSubset.add(num);
+                newSubsets.add(newSubset);
+            }
+            result.addAll(newSubsets);
+        }
+        System.out.println(result);
+        return result;
+    }
 
     public static void main(String[] args) {
-//        List<String> list = new ArrayList<>();
-//        MyImmutable obj = new MyImmutable(20, "Sarfraz", list);
-//        System.out.println(obj.getList()); //[ ]
-//        list.add("64");
-//        System.out.println(obj.getList());// [ ]
-
-        int[] array = {4, 2, 3, 5, 1};
-        int array2[][] = {{2,3,4}, {5,6,1}};
-        Arrays.sort(array2, Comparator.comparingInt(a -> a[0]));
-        printArray(array);
-        print2DArray(array2);
-
-        binarySearch(array, 5);
-
         MyImmutable myImmutable = new MyImmutable(12, "Malik", Arrays.asList("Apple", "Banana"));
         System.out.println(myImmutable.getList());
         System.out.println(myImmutable.getList().add("sad"));
@@ -247,7 +264,7 @@ final class MyImmutable{
         this.number = number;
         this.name = name;
 //        this.list = list; //In this case List will be mutable
-        this.list = Arrays.asList(list.toArray(new String[list.size()]));
+        this.list = Arrays.asList(list.toArray(String[]::new));
     }
 
     public int getNumber() {

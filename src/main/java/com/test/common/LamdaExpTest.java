@@ -20,7 +20,7 @@ public class LamdaExpTest {
         List<Integer> list = IntStream.of(intArray).boxed().collect(Collectors.toList());
         List<Integer> list2 = Arrays.stream(intArray).boxed().collect(Collectors.toList());
         IntStream intStream = Arrays.stream(intArray);
-        Stream<Integer> intStream2 = intStream.boxed();
+        Stream<Integer> intStream2 = intStream.boxed(); //Convert into generic Stream of Integer
 
 // findFirst
         String firstItem = strList.stream().findFirst().orElse("NA");
@@ -45,6 +45,10 @@ public class LamdaExpTest {
 
         strList.stream().distinct().collect(Collectors.toMap(Function.identity(), String::length))
                 .forEach((k, v)-> System.out.println(k +" : "+ v));
+        strList.stream().distinct().collect(Collectors.toMap(s->s, s->s.length()))
+                .forEach((k, v)-> System.out.println(k +" : "+ v));
+//      Concat all strings into one
+        String str = strList.stream().collect(Collectors.joining());
     }
 
     static int findGCDOfTwoNumber(int a, int b) {
@@ -129,7 +133,7 @@ public class LamdaExpTest {
 
     static Boolean isPrime(Integer number){
         if ( number == 1 ) { return false; }
-        return IntStream.range(2, number).noneMatch(a -> number % a == 0 );
+        return IntStream.range(2, number/2).noneMatch(a -> number % a == 0 );
 //        IntStream.range(2,5).forEach(System.out::println);  //2,3,4
     }
     static Integer findFirstPrimeNumber(List<Integer> numList) {
