@@ -11,6 +11,8 @@ public class zTest {
         Collections.sort(strList);
         System.out.println(strList);
 
+        System.out.println(numList.subList(1,3));
+
     }
 
 }

@@ -197,6 +197,16 @@ public class LamdaExpTest {
 //        sorted(Map.Entry.comparingByValue())
 //        sorted(Comparator.comparing(Map.Entry::getValue))
 
+        // Collect employee names into a list
+//        List<String> empNames = employees.stream().collect(Collectors.mapping(Employee::getName, Collectors.toList()));
+
+        // Employee group by address & fetch names into a list
+//        Map<String, Set<Employee>> empNames = employees.stream()
+//              .collect(Collectors.groupingBy(Employees::getAddress, Collectors.mapping(Employees::getName, Collectors.toSet())));
+
+//        Map<String, Set<Employee>> empNames = employees.stream()
+//              .collect(Collectors.groupingBy(Employees::getAddress,
+//                        Collectors.collectingAndThen(Collectors.toList(), list -> list.stream().map(Employees::getName).collect(Collectors.toSet()))));
     }
 
     static void printAllSubStrings(String str) {
