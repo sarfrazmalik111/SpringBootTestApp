@@ -1,5 +1,6 @@
 package com.test.common;
 
+import java.sql.Timestamp;
 import java.time.*;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
@@ -32,6 +33,14 @@ public class MyUtility {
 
 //	===================================DateTime-Formating-Start=====================================
 	public Long getTimeInSeconds() {
+//		Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+//		LocalDateTime localDateTime = timestamp.toLocalDateTime();
+//		System.out.println("Timestamp: " + timestamp);
+//		System.out.println("LocalDateTime: " + localDateTime);
+//
+//		Timestamp timestamp2 = Timestamp.valueOf(localDateTime);
+//		System.out.println("Timestamp2: " + timestamp2);
+
 		return System.currentTimeMillis()/1000;
 	}
 
@@ -186,20 +195,14 @@ public class MyUtility {
 
 	public static void main(String[] args) {
 		MyUtility myUtility = new MyUtility();
-		JSONObject jsonObject = new JSONObject().put("name", "sarfraz malik");
-		JsonNode jsonNode = convertJosnStringIntoJsonNode(jsonObject.toString());
-		System.out.println(jsonNode);
+		String datetime = "2025-01-15 10:22:17";
+		String datetime2 = "2025-01-15T10:22:17";
 
-		EmployeeDto employeeDto = new EmployeeDto();
-		employeeDto.setId(1l);
-		employeeDto.setName("sarfraz");
-		JsonNode jsonNode1 = convertObjectIntoAnotherObject(employeeDto, JsonNode.class);
-		System.out.println(jsonNode1);
+		Timestamp timestamp = Timestamp.valueOf(datetime);
+		System.out.println(timestamp);
 
-		List<EmployeeDto> list = new ArrayList<>();
-		list.add(employeeDto);
-		JsonNode jsonNode2 = convertObjectIntoAnotherObject(list, JsonNode.class);
-		System.out.println(jsonNode2);
+		LocalDateTime localDateTime = LocalDateTime.parse(datetime2);
+		System.out.println(localDateTime);
 
 	}
 

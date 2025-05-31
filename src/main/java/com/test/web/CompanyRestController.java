@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping({ "/api/companies" })
-public class CompanyController {
+public class CompanyRestController {
 
     @Autowired
     private CompanyService companyService;
@@ -25,7 +25,7 @@ public class CompanyController {
     private static final String SUCCESS = "Success";
     private static final String SOMETHING_WENT_WRONG = "Oops... Something went wrong";
 
-    private Logger logger = LoggerFactory.getLogger(CompanyController.class);
+    private Logger logger = LoggerFactory.getLogger(CompanyRestController.class);
 
     @GetMapping("")
     public String getCompanies() {
